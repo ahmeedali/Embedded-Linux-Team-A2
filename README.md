@@ -11,11 +11,12 @@
           - Yocto
           - Device Drivers 
           - Introduction to Rust
+          
 #### Team Name : 
-          - Ahmed Mohamed[ahmedali]	                    ||  GitHub: ahmeedali
+          - Ahmed Mohamed [ahmed ali]	                    ||  GitHub: ahmeedali
           - Mennattallah Sayed                	          ||  GitHub: blue409
           - Omar Hosny Kamal                   	          ||  GitHub: omarhosny66
           - Beshoy Samy	                              ||  GitHub: BeshoySamyAminBasalius
           - Youssef Adel            	                    ||  GitHub: Youssef1502
           - Mohamed Amr Amin	
-          - Muhammad Ahmed Muhammad Abdel Aziz	          ||  GitHub: muhammadz99
+          - Muhammad Ahmed                                  ||  GitHub: muhammadz99
