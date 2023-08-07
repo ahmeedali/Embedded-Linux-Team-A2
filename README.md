@@ -12,10 +12,10 @@
           - Device Drivers 
           - Introduction to Rust
 #### Team Name : 
-          - Ahmed Mohamed [ahmedali]	         ||  GitHub: ahmeedali
-          - Mennattallah Sayed                	||  GitHub: blue409
-          - Omar Hosny Kamal                   	||  GitHub: omarhosny66
-          - Beshoy Samy	                        ||  GitHub: BeshoySamyAminBasalius
-          - Youssef Adel Youssef           	    ||  GitHub: Youssef1502
+          - Ahmed Mohamed [ahmedali]	                    ||  GitHub: ahmeedali
+          - Mennattallah Sayed                	          ||  GitHub: blue409
+          - Omar Hosny Kamal                   	          ||  GitHub: omarhosny66
+          - Beshoy Samy	                              ||  GitHub: BeshoySamyAminBasalius
+          - Youssef Adel Youssef           	          ||  GitHub: Youssef1502
           - Mohamed Amr Amin	
-          - Muhammad Ahmed Muhammad Abdel Aziz	||  GitHub: muhammadz99
+          - Muhammad Ahmed Muhammad Abdel Aziz	          ||  GitHub: muhammadz99
