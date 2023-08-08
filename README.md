@@ -18,5 +18,5 @@
           - Omar Hosny Kamal                   	          ||  GitHub: omarhosny66
           - Beshoy Samy	                              ||  GitHub: BeshoySamyAminBasalius
           - Youssef Adel            	                    ||  GitHub: Youssef1502
-          - Mohamed Amr Amin	
+          - Mohamed Amr Amin	                              ||  GitHub: MohameAmr
           - Muhammad Ahmed                                  ||  GitHub: muhammadz99
