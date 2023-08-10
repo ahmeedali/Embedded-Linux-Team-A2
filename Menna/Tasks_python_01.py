@@ -33,6 +33,29 @@
 #print(calendar.month(year,month))
 ###########################################################################
 #from pytube import YouTube
-#URL=input("please enter the video url :")
+#URL=input("please enter the video url you want to download from YouTube:")
 #YouTube('{URL}').streams.filter(progressive=True,file_extension='mp4').first().download()
 ###########################################################################
+#lab:
+#info = requests.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+#currencies=[]
+#Keys=[]
+#Values=[]
+#for i in info.json()['bpi']:
+#       currencies.append(i)
+#       for k in info.json()['bpi'][i]:
+#            Keys.append(k)
+#            Values.append(info.json()['bpi'][i][k])
+#print(currencies)
+#print(Keys)
+#print(Values)
+#############################################################################
+#lab:
+#thisdict={
+#    "brand":"Nissan",
+#    "Color":"Grey",
+#    "Model":"1999"}
+#for i in thisdict :
+#    print(i)                #keys
+#    print(thisdict[i],sep=":") #values
+##############################################################################
