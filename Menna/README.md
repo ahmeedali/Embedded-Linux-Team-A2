@@ -1,7 +1,6 @@
-#Menna
-##Describtion :
-*This folder contains my Tasks for this course 
-###Contents:
- -Python
- -C++
- -Linux Administration
+# Menna
+## Describtion :
+* This folder contains my Tasks for this course 
+### Contents:
+ 
+ 
