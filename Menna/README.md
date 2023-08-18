@@ -1,6 +1,6 @@
-# Menna
+
 ## Describtion :
-* This folder contains my Tasks for this course 
+* This folder contains my Tasks and labs for this course.
 ### Contents:
  
  
