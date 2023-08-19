@@ -10,4 +10,4 @@
 ## 05) Calender :
 [Write a python program to display calendar of given month or year.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/05-Calendar.py)
 ## 06) Login system :
-[Write a python code that handleing given login data system](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/06-Login-system.py)
+[Write a python code that handleing given login data system.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/06-Login-system.py)
