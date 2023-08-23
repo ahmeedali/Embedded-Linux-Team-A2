@@ -17,10 +17,17 @@ gui.hotkey('ctrl', 'shift', 'x')
 sleep(0.5)
 gui.hotkey("f11")
 sleep(0.5)
-x,y=gui.position()
-print(x,y)
-gui.click(130, 51, 1, button='left')
+ Ahmed-Ali
+gui.click(270, 55, 1, button='left')
 gui.write("code")
+x, y = gui.locateCenterOnScreen('.png')
+gui.click(x, y)
+
 x, y = gui.locateCenterOnScreen('calc7key.png')
 gui.click(x, y)
+
+# while True:
+#    x,y=gui.position()
+#    print(x,y)
+
 
