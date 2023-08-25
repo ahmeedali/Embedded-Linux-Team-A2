@@ -30,3 +30,16 @@ def find_largest(*args):
 
 find_largest(55,40,30,99,70,85) 
 ####################################################################################
+#Lab(): Says a sentence that you write:
+from gtts import gTTS
+import vlc
+myobj = gTTS(text='Good Morning ShoSho,', lang='en', slow=False)
+# Saving the converted audio in a mp3 file named
+myobj.save("welcome.mp4")
+# Playing the converted file
+p = vlc.MediaPlayer("./welcome.mp4")
+x = p.get_length()
+p.play()
+while  True:
+      pass
+######################################################################################
