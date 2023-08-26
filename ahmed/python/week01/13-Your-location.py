@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import requests
 
 url = requests.get ("https://api.ipify.org/?format=json")

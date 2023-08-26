@@ -12,6 +12,7 @@ def on_triggered():
     fd.close()
 
 
+
 def listen_for_shortcut():
     # Set the desired shortcut key combination (Example: Ctrl + Alt + S)
     shortcut = "ctrl + alt + s"
