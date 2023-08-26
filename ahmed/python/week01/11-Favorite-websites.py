@@ -1,5 +1,7 @@
 #!/usr/bin/python3
+
 import webbrowser
+
 print ("1-freepik \n2-Illustrator Online editor \n3-Photo Online editor")
 url= int (input ("Choose 1 ,2 or 3 : "))
 
