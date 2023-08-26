@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import requests
 
 print ("Choose one or more activity of 10 activities")
