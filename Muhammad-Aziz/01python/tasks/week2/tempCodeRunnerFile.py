@@ -1,0 +1,6 @@
+time.sleep(3)
+# pyautogui.moveTo(2292,205)
+# pyautogui.click()
+# time.sleep(3)
+# pyautogui.moveTo(2292,205)
+# pyautogui.click()
