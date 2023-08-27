@@ -22,7 +22,7 @@ try:
        pg.typewrite(i,interval=0.2)
        pg.sleep(4)
        Locate(i+'.PNG')
-       Locate('install.PNG')
+       Locate('installa.PNG')
        if (i == 'clangd'):
          pg.doubleClick(Locate('search_clang.PNG')) 
        if (i == 'helper'): 
