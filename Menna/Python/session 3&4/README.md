@@ -12,3 +12,4 @@ The script :
 - Python version 3.10 or higher installed
 - pyautogui library and python_opencv library installed
 ##### A Video Link That Presents the result : <https://youtu.be/aldhJ7xA8r4>
+##### An updated video after fixing minor issue : <https://youtu.be/dk41hoo2bmQ>
