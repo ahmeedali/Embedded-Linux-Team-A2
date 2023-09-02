@@ -10,7 +10,7 @@ int main (){
     std :: cout << "Max Number is : "<< MaxNumber(x,y,z)<< std :: endl; 
 
     return 0;
-}
+} 
 
 int MaxNumber(int x, int y, int z) {
 
