@@ -16,7 +16,7 @@ int main()
    std::cout << "The character " << character <<" is consonant" << std::endl;
 
 return 0; 
-}
+} 
 
 bool IsVowel(std :: string character){
 std:: vector<std::string> vowels = { "a", "e", "i", "o", "u","A", "E", "I", "O", "U"};
