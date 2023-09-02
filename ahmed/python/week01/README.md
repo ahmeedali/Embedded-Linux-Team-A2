@@ -17,3 +17,13 @@
 [write a sample program that converts text to speech.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/08-Google-Text-to-Speech.py)
 ## 09) Youtube Videos Downloader :
 [Write a python code that download videos form youtube.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/09-Youtube-videos-downloader.py)
+## 10) Linux shortcut :
+[Write a python code that make shortcut on linux.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/10-Shortcut.py)
+## 11) Open favoraite websites :
+[Write a python code to open some favoraite websites ](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/11-Favorite-websites.py)
+## 12)Suggest activites:
+[Write a python code that suggest diffrent activites.](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/12-Suggest-activates.py)
+## 13)Your location:
+[Write a python code that locate your location from IP ](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/13-Your-location.py)
+## 14)Install VScode Extentions :
+[Write a python code by using PyAutoGUI to install some extentions in vscode ](https://github.com/ahmeedali/Embedded-Linux-Team-A2/blob/ahmed/ahmed/python/week01/14-Install-VScode-Extentions.py)
