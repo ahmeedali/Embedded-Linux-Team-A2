@@ -3,7 +3,8 @@
 import socket
 # Socket connection(IP + port)
 client2 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client2.connect(('127.0.1.1',5050)) 
+ip = socket.gethostbyname(socket.gethostname())
+client2.connect((ip,8888)) 
  
 print ("="*50)
 while True:
@@ -12,5 +13,8 @@ while True:
     print ("="*50)
     data=client2.recv(1024)
     print(f"you recevied message :{data.decode('UTF-8')}")
-    client2.close()
-    
+    if data.decode('UTF-8')=="bye":
+        client2.close()
+        break
+    else :
+        continue
