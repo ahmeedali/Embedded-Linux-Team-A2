@@ -17,7 +17,7 @@ int main()
 
 return 0;
 
-}
+} 
 
 bool IsRight(unsigned int a, unsigned int b , unsigned int c){
  a = pow(a,2);
