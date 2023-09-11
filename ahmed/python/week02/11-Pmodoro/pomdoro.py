@@ -2,21 +2,18 @@ from customtkinter import *
 from tkinter import *
 from math import *
 import time
+from tkinter import messagebox
 
 
 window = Tk()
-window.geometry("400x660")
+window.geometry("400x800")
 window.configure(background="#211d31")
 window.resizable(0, 0)
 window.title("POMODORO TIMER")
 # window.call('wm', 'iconphoto',window._w,PhotoImage(file="on.png"))
 
 
-############################################################################################################
 
-                                      #### Analog clock ####
-
-############################################################################################################
 
 
 def update_clock():
@@ -42,78 +39,121 @@ def update_clock():
     window.after(1000, update_clock)
 
 
-canvas_clk = Canvas(window, width=400, height=162,bd=0,background="#211d31",highlightthickness = 0)
-canvas_clk.place(x=0, y=0)
+def start_sw ():
+    start.configure(file="stop.png")
+    start_b.configure(command=stop_sw)
+       
+def stop_sw(): 
+    start.configure(file="start.png") 
+    start_b.configure(command=start_sw) 
+   
 
-# create background
+
+
+added_tasks = []
+
+def add_task():
+    todo = entry.get()
+    if todo:
+        
+        label = CTkLabel(scrollable_frame, text=todo,text_color="white")
+        label.pack()
+        added_tasks.append(label)
+        entry.delete(0, END)
+    else:
+        messagebox.showinfo("Error", message="Try to enter a task")
+        
+def remove_task():
+    if added_tasks:
+        tasks_to_remove = added_tasks.pop()
+        tasks_to_remove.destroy()
+        save_task()
+        
+def save_task(): 
+    
+    with open ("task.txt","w") as f:
+        for x in added_tasks:
+            f.write(add_task + "\n")
+                
+def load_tasks():
+     try: 
+         with open ("task.txt","") as f:
+            tasks=f.readlines()
+            tasks= added_tasks.get(0,END)
+            for x in tasks:
+                label = CTkLabel(scrollable_frame, text= x ,text_color="white")
+                label.pack()
+                added_tasks.append(label)
+                
+     except FileNotFoundError: 
+         pass          
+    
+
+
+# widget 
 clk = PhotoImage(file='clock.png')
-canvas_clk.create_image(200, 91, image=clk)
-
-
-
-# create clock hands
-# sec hand
-center_x = 195
-center_y = 80
-
-sec_hand_len = 27
-min_hand_len = 23
-h_hand_len = 14
-
-sec_hand = canvas_clk.create_line(194, 80,  sec_hand_len, sec_hand_len, width=1.5, fill='#3b54cd')
-min_hand = canvas_clk.create_line(194, 80,  min_hand_len, min_hand_len, width=2  , fill='#e95d5d')
-h_hand   = canvas_clk.create_line(194, 80,  h_hand_len  , h_hand_len  , width=3.5, fill='#e95d5d')
-
-update_clock()
-
-
-############################################################################################################
-
-                                      #### Pomodoro Timer ####
-
-############################################################################################################
-
-
-
 po=PhotoImage(file="Pomodoro.png")
-
-#creating label and button with command order 
-lb_led=Label(window,image=po,bg="#211d31",bd=0,highlightthickness = 0)
-lb_led.place(x=67, y=150)
-
 skip=PhotoImage(file="skip.png")
 start=PhotoImage(file="start.png")
 stop=PhotoImage(file="stop.png")
 
+# hands postions for clock 
+center_x = 195
+center_y = 80
+# create clock hands
+h_hand_len   = 14
+min_hand_len = 23
+sec_hand_len = 27
+
+
+
+
+
+canvas_clk = Canvas(window, width=400, height=162,bd=0,background="#211d31",highlightthickness = 0)
+canvas_clk.create_image(200, 91, image=clk)
+
+sec_hand = canvas_clk.create_line(194, 80,  sec_hand_len, sec_hand_len, width=1.5, fill='#3b54cd')
+min_hand = canvas_clk.create_line(194, 80,  min_hand_len, min_hand_len, width=2  , fill='#e95d5d')
+h_hand   = canvas_clk.create_line(194, 80,  h_hand_len  , h_hand_len  , width=2, fill='#e95d5d')
+update_clock()
+
+
+
+
+#creating label and button with command order 
+tomoto = Label(window,image=po,bg="#211d31",bd=0,highlightthickness = 0)
+timer  = Label(window,text="25:00",font=("arial",30),bg="transparent",bd=0,highlightthickness = 0)
+
+
 #creating label and button with command order 
 skip_b =Button(window,image=skip,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
-start_b=Button(window,image=start,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
-stop_b =Button(window,image=skip,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
+start_b=Button(window,image=start,command=start_sw,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
 
 
+
+title_label = CTkLabel(window, text="Daily Tasks", font=CTkFont(size=20, weight="bold"),text_color="white")
+scrollable_frame = CTkScrollableFrame(window, width=400, height=50,fg_color="#211d31")
+entry = CTkEntry(scrollable_frame, placeholder_text="Add todo",fg_color="#211d31",text_color="white")
+add_button = CTkButton(window, text="Add", width=150, command=add_task,fg_color="#3b54cd",hover_color="#778ef9")
+remove_button = CTkButton(window, text="Remove", width=150, command=remove_task,fg_color="#3b54cd",hover_color="#778ef9")
+
+
+
+
+
+canvas_clk.place(x=0, y=0)
+
+tomoto.place(x=67, y=150)
+timer.place(x=67, y=150)
 start_b.place(x=140, y=360)
 skip_b.place(x=210, y=360)
 
 Label(window,bg="#211d31",bd=0,highlightthickness = 0,).pack(pady=200)
 
-
-
-
-def add_todo():
-    todo = entry.get()
-    label = CTkLabel(scrollable_frame, text=todo)
-    label.pack()
-    entry.delete(0, END)
-
-
-# title_label = CTkLabel(window, text="Daily Tasks", font=CTkFont(size=30, weight="bold"))
-# title_label.pack(padx=10, pady=(40, 20))
-
-scrollable_frame = CTkScrollableFrame(window, width=400, height=50,fg_color="#211d31")
+title_label.pack(padx=10,pady=(5,10))
 scrollable_frame.pack()
-
-entry = CTkEntry(scrollable_frame, placeholder_text="Add todo",fg_color="#211d31")
 entry.pack(fill="x")
-add_button = CTkButton(window, text="Add", width=400, command=add_todo,fg_color="#3b54cd",hover_color="#778ef9")
-add_button.place (x=0, y=630)
+add_button.place (x=20, y=630)
+remove_button.place (x=210, y=630)
+
 window.mainloop()
