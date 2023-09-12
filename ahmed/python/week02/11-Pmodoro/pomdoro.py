@@ -3,6 +3,7 @@ from tkinter import *
 from math import *
 import time
 from tkinter import messagebox
+import threading
 
 
 window = Tk()
@@ -39,15 +40,67 @@ def update_clock():
     window.after(1000, update_clock)
 
 
-def start_sw ():
+# def start_sw ():
+#     start.configure(file="stop.png")
+#     start_b.configure(command=stop_sw)
+       
+# def stop_sw(): 
+#     start.configure(file="start.png") 
+#     start_b.configure(command=start_sw) 
+
+def start_pomodoro():
+    global timer_running
+    timer_running = True
+    cycles = 0
+
+    while timer_running:
+        if cycles % 4 == 0 and cycles > 0:
+            # Long break
+            minutes = 15
+            messagebox.showinfo("Long Break", message="Take a 15-minute break.")
+        else:
+            # Short break or work session
+            if cycles % 2 == 0:
+                # Work session
+                minutes = 25
+                messagebox.showinfo("Work Session", message="Focus on your task for 25 minutes.")
+            else:
+                # Short break
+                minutes = 5
+                messagebox.showinfo("Short Break", message="Take a 5-minute break.")
+
+        seconds = 0
+
+        while minutes >= 0 and timer_running:
+            timer.configure(text=f"{minutes:02d}:{seconds:02d}")
+            window.update()
+            time.sleep(1)
+            seconds -= 1
+
+            if seconds < 0:
+                minutes -= 1
+                seconds = 59
+
+        if timer_running:
+            cycles += 1
+
+    timer.configure(text="25:00")
+          
+def start_sw():
+    global timer_thread
     start.configure(file="stop.png")
     start_b.configure(command=stop_sw)
-       
-def stop_sw(): 
-    start.configure(file="start.png") 
-    start_b.configure(command=start_sw) 
-   
+    timer_thread = threading.Thread(target=start_pomodoro)
+    timer_thread.start()
 
+def stop_sw():
+    global timer_running
+    global timer_thread
+    start.configure(file="start.png")
+    start_b.configure(command=start_sw)
+    timer_running = False
+    timer_thread.join()
+    timer.configure(text="25:00")
 
 
 added_tasks = []
@@ -69,30 +122,38 @@ def remove_task():
         tasks_to_remove.destroy()
         save_task()
         
-def save_task(): 
-    
-    with open ("task.txt","w") as f:
-        for x in added_tasks:
-            f.write(add_task + "\n")
+def save_task():
+    with open("tasks.txt", "w") as f:
+        for task in added_tasks:
+            f.write(task["text"] + "\n")
                 
 def load_tasks():
-     try: 
-         with open ("task.txt","") as f:
-            tasks=f.readlines()
-            tasks= added_tasks.get(0,END)
-            for x in tasks:
-                label = CTkLabel(scrollable_frame, text= x ,text_color="white")
+    try:
+        with open("tasks.txt", "r") as f:
+            tasks = f.readlines()
+            for task in tasks:
+                label = CTkLabel(scrollable_frame, text=task.strip(), text_color="white")
                 label.pack()
                 added_tasks.append(label)
-                
-     except FileNotFoundError: 
-         pass          
+    except FileNotFoundError:
+        pass
+              
     
+def skip_pomodoro():
+    global timer_running
+    timer_running = False
+    messagebox.showinfo("Pomodoro Skipped", message="Pomodoro skipped. Start a new one.")
 
+def end_pomodoro():
+    global timer_running
+    timer_running = False
+    messagebox.showinfo("Pomodoro Ended", message="Pomodoro ended. Take a longer break.")
+    timer.configure(text="25:00")
+    cycles = 0
 
 # widget 
 clk = PhotoImage(file='clock.png')
-po=PhotoImage(file="Pomodoro.png")
+po=PhotoImage(file="timer.png")
 skip=PhotoImage(file="skip.png")
 start=PhotoImage(file="start.png")
 stop=PhotoImage(file="stop.png")
@@ -122,12 +183,12 @@ update_clock()
 
 #creating label and button with command order 
 tomoto = Label(window,image=po,bg="#211d31",bd=0,highlightthickness = 0)
-timer  = Label(window,text="25:00",font=("arial",30),bg="transparent",bd=0,highlightthickness = 0)
+timer  = Label(window,text="25:00",font=("DS-Digital",40,"bold"),bg= "#263138",bd=0,highlightthickness = 0,fg="#91e2a8")
 
 
 #creating label and button with command order 
 skip_b =Button(window,image=skip,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
-start_b=Button(window,image=start,command=start_sw,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
+start_b = Button(window,image=start,command=start_sw,bd=0,bg="#211d31", highlightthickness=0, activebackground="#211d31")
 
 
 
@@ -143,17 +204,17 @@ remove_button = CTkButton(window, text="Remove", width=150, command=remove_task,
 
 canvas_clk.place(x=0, y=0)
 
-tomoto.place(x=67, y=150)
-timer.place(x=67, y=150)
-start_b.place(x=140, y=360)
-skip_b.place(x=210, y=360)
+tomoto.place(x=15, y=150)
+timer.place(x=72, y=295)
+start_b.place(x=310, y=270)
+skip_b.place(x=310, y=360)
 
 Label(window,bg="#211d31",bd=0,highlightthickness = 0,).pack(pady=200)
 
-title_label.pack(padx=10,pady=(5,10))
+title_label.pack(padx=10,pady=(20,10))
 scrollable_frame.pack()
 entry.pack(fill="x")
-add_button.place (x=20, y=630)
-remove_button.place (x=210, y=630)
+add_button.place (x=20, y=650)
+remove_button.place (x=210, y=650)
 
 window.mainloop()
