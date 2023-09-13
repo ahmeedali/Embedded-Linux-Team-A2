@@ -5,7 +5,6 @@ import time
 from tkinter import messagebox
 import threading
 import requests
-import os 
 
 
 
@@ -122,7 +121,7 @@ def end_pomodoro():
     
     
 def start_sw():
-    start.configure(file="stop.png")
+    start.configure(file="Stop.png")
     start_b.configure(command=stop_sw)
     timer_thread = threading.Thread(target=start_pomodoro)
     timer_thread.start()
@@ -130,7 +129,7 @@ def start_sw():
     
 
 def stop_sw():
-    start.configure(file="start.png")
+    start.configure(file="Start.png")
     start_b.configure(command=start_sw)
     end_pomodoro()       
 
@@ -184,11 +183,11 @@ def activity_generator():
     
 
 # widget 
-clk   = PhotoImage(file='clock.png')
-timer = PhotoImage(file="timer.png")
-skip  = PhotoImage(file="skip.png")
-start = PhotoImage(file="start.png")
-stop  = PhotoImage(file="stop.png")
+clk   = PhotoImage(file="Clock.png")
+timer = PhotoImage(file="Timer.png")
+skip  = PhotoImage(file="Skip.png")
+start = PhotoImage(file="Start.png")
+stop  = PhotoImage(file="Stop.png")
 
 
 
