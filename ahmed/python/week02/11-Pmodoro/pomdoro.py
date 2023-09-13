@@ -11,8 +11,6 @@ window.geometry("400x800")
 window.configure(background="#211d31")
 window.resizable(0, 0)
 window.title("POMODORO TIMER")
-# window.call('wm', 'iconphoto',window._w,PhotoImage(file="on.png"))
-
 
 
 
@@ -38,69 +36,100 @@ def update_clock():
     canvas_clk.coords(h_hand, center_x, center_y, h_x, h_y)
 
     window.after(1000, update_clock)
+    
 
 
-# def start_sw ():
-#     start.configure(file="stop.png")
-#     start_b.configure(command=stop_sw)
-       
-# def stop_sw(): 
-#     start.configure(file="start.png") 
-#     start_b.configure(command=start_sw) 
+    
+start_timer = True
+skip_timer  = False
+stop_timer  = False
+cycles      = 0  
 
+
+def run_time (Mode):
+    minutes,seconds = divmod (Mode , 60 )
+    counter.configure(text=f"{minutes:02d}:{seconds:02d}")
+    window.update()
+    time.sleep(1)
+    
 def start_pomodoro():
-    global timer_running
-    timer_running = True
+    
+    global start_timer 
+    global skip_timer  
+    global stop_timer
+    global cycles 
+    start_timer = True
+    skip_timer  = False
+    stop_timer  = False
+    
+    work_session = 25 * 60
+    long_break   = 2 * 60
+    short_break  = 1 * 60
+    
+    if start_timer:
+            messagebox.showinfo("Work Session", message="Focus on your task for 25 minutes.")
+
+            while work_session > 0 and not (stop_timer or skip_timer):
+                run_time(work_session)
+                work_session -= 1
+
+            if skip_timer or not stop_timer:
+                cycles += 1
+                if cycles % 4 == 0:
+                    messagebox.showinfo("Long Break", message="Take a 15-minute break.")
+                    while long_break > 0 and not stop_timer:
+                        run_time(long_break)
+                        long_break -= 1
+                else:
+                    messagebox.showinfo("Short Break", message="Take a 5-minute break.")
+                    while short_break > 0 and not stop_timer:
+                        run_time(short_break)
+                        short_break -= 1
+
+                start_pomodoro()
+
+        
+               
+                              
+        
+def skip_pomodoro():
+    global start_timer 
+    global skip_timer  
+    global stop_timer
+    skip_timer  = True
+    stop_timer  = False
+    start_timer = True
+    
+
+def end_pomodoro():
+    global start_timer 
+    global skip_timer  
+    global stop_timer
+    global cycles
+    skip_timer  = False
+    stop_timer  = True
+    start_timer = False
+    
+    messagebox.showinfo("Pomodoro Ended", message="Pomodoro ended. Take a longer break.")
+    counter.configure(text="00:00")
     cycles = 0
-
-    while timer_running:
-        if cycles % 4 == 0 and cycles > 0:
-            # Long break
-            minutes = 15
-            messagebox.showinfo("Long Break", message="Take a 15-minute break.")
-        else:
-            # Short break or work session
-            if cycles % 2 == 0:
-                # Work session
-                minutes = 25
-                messagebox.showinfo("Work Session", message="Focus on your task for 25 minutes.")
-            else:
-                # Short break
-                minutes = 5
-                messagebox.showinfo("Short Break", message="Take a 5-minute break.")
-
-        seconds = 0
-
-        while minutes >= 0 and timer_running:
-            timer.configure(text=f"{minutes:02d}:{seconds:02d}")
-            window.update()
-            time.sleep(1)
-            seconds -= 1
-
-            if seconds < 0:
-                minutes -= 1
-                seconds = 59
-
-        if timer_running:
-            cycles += 1
-
-    timer.configure(text="25:00")
-          
+    
+    
+    
+    
+    
 def start_sw():
-    global timer_thread
     start.configure(file="stop.png")
     start_b.configure(command=stop_sw)
     timer_thread = threading.Thread(target=start_pomodoro)
     timer_thread.start()
+    
+    
 
 def stop_sw():
-    global timer_running
-    global timer_thread
     start.configure(file="start.png")
     start_b.configure(command=start_sw)
-    timer_running = False
-    timer_thread.join()
-    timer.configure(text="25:00")
+    end_pomodoro()       
 
 
 added_tasks = []
@@ -108,7 +137,6 @@ added_tasks = []
 def add_task():
     todo = entry.get()
     if todo:
-        
         label = CTkLabel(scrollable_frame, text=todo,text_color="white")
         label.pack()
         added_tasks.append(label)
@@ -120,43 +148,35 @@ def remove_task():
     if added_tasks:
         tasks_to_remove = added_tasks.pop()
         tasks_to_remove.destroy()
-        save_task()
-        
-def save_task():
-    with open("tasks.txt", "w") as f:
-        for task in added_tasks:
-            f.write(task["text"] + "\n")
+    
+# will add it in v2 isa       
+# def save_task():
+#     with open("tasks.txt", "w") as f:
+#         for task in added_tasks:
+#             f.write(task["text"] + "\n")
                 
-def load_tasks():
-    try:
-        with open("tasks.txt", "r") as f:
-            tasks = f.readlines()
-            for task in tasks:
-                label = CTkLabel(scrollable_frame, text=task.strip(), text_color="white")
-                label.pack()
-                added_tasks.append(label)
-    except FileNotFoundError:
-        pass
+# def load_tasks():
+#     try:
+#         with open("tasks.txt", "r") as f:
+#             tasks = f.readlines()
+#             for task in tasks:
+#                 label = CTkLabel(scrollable_frame, text=task.strip(), text_color="white")
+#                 label.pack()
+#                 added_tasks.append(label)
+#     except FileNotFoundError:
+#         pass
               
     
-def skip_pomodoro():
-    global timer_running
-    timer_running = False
-    messagebox.showinfo("Pomodoro Skipped", message="Pomodoro skipped. Start a new one.")
-
-def end_pomodoro():
-    global timer_running
-    timer_running = False
-    messagebox.showinfo("Pomodoro Ended", message="Pomodoro ended. Take a longer break.")
-    timer.configure(text="25:00")
-    cycles = 0
 
 # widget 
-clk = PhotoImage(file='clock.png')
-po=PhotoImage(file="timer.png")
-skip=PhotoImage(file="skip.png")
-start=PhotoImage(file="start.png")
-stop=PhotoImage(file="stop.png")
+clk   = PhotoImage(file='clock.png')
+timer = PhotoImage(file="timer.png")
+skip  = PhotoImage(file="skip.png")
+start = PhotoImage(file="start.png")
+stop  = PhotoImage(file="stop.png")
+
+
+
 
 # hands postions for clock 
 center_x = 195
@@ -165,8 +185,6 @@ center_y = 80
 h_hand_len   = 14
 min_hand_len = 23
 sec_hand_len = 27
-
-
 
 
 
@@ -182,12 +200,12 @@ update_clock()
 
 
 #creating label and button with command order 
-tomoto = Label(window,image=po,bg="#211d31",bd=0,highlightthickness = 0)
-timer  = Label(window,text="25:00",font=("DS-Digital",40,"bold"),bg= "#263138",bd=0,highlightthickness = 0,fg="#91e2a8")
+tomoto = Label(window,image=timer,bg="#211d31",bd=0,highlightthickness = 0)
+counter = Label(window,text="25:00",font=("DS-Digital",40,"bold"),bg= "#263138",bd=0,highlightthickness = 0,fg="#91e2a8")
 
 
 #creating label and button with command order 
-skip_b =Button(window,image=skip,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
+skip_b =Button(window,image=skip,command=skip_pomodoro,bd=0,bg="#211d31",highlightthickness = 0,activebackground="#211d31")
 start_b = Button(window,image=start,command=start_sw,bd=0,bg="#211d31", highlightthickness=0, activebackground="#211d31")
 
 
@@ -205,9 +223,9 @@ remove_button = CTkButton(window, text="Remove", width=150, command=remove_task,
 canvas_clk.place(x=0, y=0)
 
 tomoto.place(x=15, y=150)
-timer.place(x=72, y=295)
-start_b.place(x=310, y=270)
-skip_b.place(x=310, y=360)
+counter.place(x=72, y=295)
+start_b.place(x=310, y=220)
+skip_b.place(x=310, y=320)
 
 Label(window,bg="#211d31",bd=0,highlightthickness = 0,).pack(pady=200)
 
