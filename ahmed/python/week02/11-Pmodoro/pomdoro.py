@@ -4,6 +4,9 @@ from math import *
 import time
 from tkinter import messagebox
 import threading
+import requests
+import os 
+
 
 
 window = Tk()
@@ -142,12 +145,24 @@ def add_task():
         added_tasks.append(label)
         entry.delete(0, END)
     else:
-        messagebox.showinfo("Error", message="Try to enter a task")
+        messagebox.showinfo("Error", message="Try to enter a task")\
+            
+#shortcut            
+def key_press(event):
+    if event.keysym == "Return":
+        add_task()
         
+window.bind("<Key>", key_press)
+                
 def remove_task():
     if added_tasks:
         tasks_to_remove = added_tasks.pop()
         tasks_to_remove.destroy()
+
+def activity_generator():
+     url = requests.get ("https://www.boredapi.com/api/activity")
+     messagebox.showinfo("Activity Generator", message=f"{url.json()['activity']}")
+
     
 # will add it in v2 isa       
 # def save_task():
@@ -201,7 +216,7 @@ update_clock()
 
 #creating label and button with command order 
 tomoto = Label(window,image=timer,bg="#211d31",bd=0,highlightthickness = 0)
-counter = Label(window,text="25:00",font=("DS-Digital",40,"bold"),bg= "#263138",bd=0,highlightthickness = 0,fg="#91e2a8")
+counter = Label(window,text="00:00",font=("DS-Digital",40,"bold"),bg= "#263138",bd=0,highlightthickness = 0,fg="#91e2a8")
 
 
 #creating label and button with command order 
@@ -212,11 +227,10 @@ start_b = Button(window,image=start,command=start_sw,bd=0,bg="#211d31", highligh
 
 title_label = CTkLabel(window, text="Daily Tasks", font=CTkFont(size=20, weight="bold"),text_color="white")
 scrollable_frame = CTkScrollableFrame(window, width=400, height=50,fg_color="#211d31")
-entry = CTkEntry(scrollable_frame, placeholder_text="Add todo",fg_color="#211d31",text_color="white")
-add_button = CTkButton(window, text="Add", width=150, command=add_task,fg_color="#3b54cd",hover_color="#778ef9")
-remove_button = CTkButton(window, text="Remove", width=150, command=remove_task,fg_color="#3b54cd",hover_color="#778ef9")
-
-
+entry = CTkEntry(scrollable_frame, placeholder_text="Add Todo Taskes",fg_color="#211d31",text_color="white")
+add_button = CTkButton(window, text="Add", width=170, command=add_task,fg_color="#3b54cd",hover_color="#778ef9")
+remove_button = CTkButton(window, text="Remove", width=170, command=remove_task,fg_color="#3b54cd",hover_color="#778ef9")
+act_button = CTkButton(window, text="Suggested activities",height= 40, width=300, command=activity_generator,fg_color="#3b54cd",hover_color="#778ef9")
 
 
 
@@ -232,7 +246,8 @@ Label(window,bg="#211d31",bd=0,highlightthickness = 0,).pack(pady=200)
 title_label.pack(padx=10,pady=(20,10))
 scrollable_frame.pack()
 entry.pack(fill="x")
-add_button.place (x=20, y=650)
-remove_button.place (x=210, y=650)
+add_button.place (x=20, y=680)
+remove_button.place (x=210, y=680)
+act_button.place (x=50, y=740)
 
 window.mainloop()
