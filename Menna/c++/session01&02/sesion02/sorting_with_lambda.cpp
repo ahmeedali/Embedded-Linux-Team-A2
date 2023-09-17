@@ -1,3 +1,7 @@
+#include <algorithm>
+#include <array>
+#include <iostream>
+
 auto lam_sort_ascend = [](const int a,const int b){
 
    return (a < b);
