@@ -1,3 +1,8 @@
+#include <vector>
+#include <algorithm>
+#include <array>
+#include <iostream>
+
 int main() {
 
   std::vector<int> vect{1,5,4,8,9,12};
