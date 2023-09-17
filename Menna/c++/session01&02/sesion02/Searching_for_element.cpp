@@ -1,3 +1,8 @@
+#include <vector>
+#include <algorithm>
+#include <array>
+#include <iostream>
+
 template <std::size_t array_size>                  // generic array size type using template
 bool search_ele(int (&arr)[array_size],int no){   //passing a refrence array and its size to make ranged for loop work inside a function 
 
