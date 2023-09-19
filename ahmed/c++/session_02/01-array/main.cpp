@@ -3,11 +3,9 @@
 
 int main (){
 
-  struct Array ahmed;
+  struct Array obj;
 
-  // ahmed.find_max_number();
-  // ahmed.search_for_number();
-  // ahmed.delete_number();
-  ahmed.even_and_odd();
+  obj.menu();
+
     return 0;
 }

@@ -13,9 +13,8 @@ struct Array
     void find_max_number();
     void search_for_number();
     void delete_number();
-    int merge_two();
     void even_and_odd();
-                                      
+    void menu ();                              
     ~Array();
 };
 

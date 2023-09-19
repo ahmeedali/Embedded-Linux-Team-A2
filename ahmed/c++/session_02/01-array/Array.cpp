@@ -8,7 +8,7 @@ void Array::find_max_number() {
 
   auto max = std::max_element(arr.begin(), arr.end());
 
-  std::cout << "The max element is " << max << std::endl;
+  std::cout << "The max element is " << *max << std::endl;
 }
 /*****************************************************/
 void Array::search_for_number() {
@@ -65,7 +65,49 @@ void Array::delete_number() {
      }
      
  }
+
+ void Array::menu(){
+ int choice{0};
+  
+     while (choice!=-1) {
+
+    
+        std::cout << "\n----- MENU -----" << std::endl;
+        for (int i: arr)
+          {  std:: cout << i << " ";  }
+        std::cout << "\n1. Find the maximum number\n"
+                  << "2. Search for a number\n"
+                  << "3. Delete a number\n"
+                  << "4. Display even and odd numbers\n"
+                  << "5. Exit\n"
+                  << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                find_max_number();
+                break;
+            case 2:
+                search_for_number();
+                break;
+            case 3:
+                delete_number();
+                break;
+            case 4:
+                even_and_odd();
+                break;
+            case 5:
+                std::cout << "Exiting the program." << std::endl;
+                choice =-1;
+                break;
+            default:
+                std::cout << "Invalid choice! Please try again." << std::endl;
+        }
+    }
+
+
+
+ }
+
  
-
-
 Array::~Array() {}
